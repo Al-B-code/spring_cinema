@@ -9,7 +9,9 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +39,18 @@ public class MovieService {
 
     public Optional<List<Movie>> getMovies(){
         return Optional.of(movieRepository.findAll());
+    }
+
+    public Optional<List<Movie>> getMovies(int maxDuration){
+        List<Movie> movieList = movieRepository.findAll();
+        ArrayList<Movie> maxDurationList = new ArrayList<>(); {
+        }
+        for (int i = 0; i < movieList.size(); i++) {
+            if (movieList.get(i).getDuration() < maxDuration) {
+                maxDurationList.add(movieList.get(i));
+            }
+        }
+        return Optional.of(maxDurationList);
     }
 
     public String removeMovie(long id){

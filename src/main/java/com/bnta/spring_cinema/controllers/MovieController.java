@@ -27,9 +27,17 @@ public class MovieController {
 
 
     @GetMapping
-    public ResponseEntity<Optional<List<Movie>>> getMovies(){
-        return new ResponseEntity<>(movieService.getMovies(), HttpStatus.OK);
+    public ResponseEntity<Optional<List<Movie>>> getMovies(@RequestParam(
+            name = "MaxDuration",
+            required = false,
+            defaultValue = "300") int maxDuration){
+        return new ResponseEntity<>(movieService.getMovies(maxDuration), HttpStatus.OK);
     }
+
+//    @GetMapping()
+//    public ResponseEntity<Optional<List<Movie>>> getMovies(@RequestParam(name = "MaxDuration", required = false, defaultValue = "300") int maxDuration){
+//        return new ResponseEntity<>(movieService.getMovies(maxDuration), HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Movie>> getMovie(@PathVariable long id){
