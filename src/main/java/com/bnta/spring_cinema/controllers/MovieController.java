@@ -49,7 +49,7 @@ public class MovieController {
             return new ResponseEntity<>(movieService.removeMovie(id), HttpStatus.OK);
         }
 
-    @PostMapping(value = "/{id}/title")
+    @PutMapping(value = "/{id}")
         public ResponseEntity<String> modifyMovie(@PathVariable long id, @RequestBody String title){
             return new ResponseEntity<>(movieService.modifyMovieName(id, title), HttpStatus.OK);
         }
