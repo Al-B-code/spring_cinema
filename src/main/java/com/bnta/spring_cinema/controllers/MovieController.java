@@ -40,8 +40,12 @@ public class MovieController {
 //    }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<Movie>> getMovie(@PathVariable long id){
-        return new ResponseEntity<>(movieService.getMovie(id), HttpStatus.OK);
+    public ResponseEntity<Movie> getMovie(@PathVariable long id){
+        Optional<Movie> optionalMovie = movieService.getMovie(id);
+        if(optionalMovie.isEmpty()){
+            return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(optionalMovie.get(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
